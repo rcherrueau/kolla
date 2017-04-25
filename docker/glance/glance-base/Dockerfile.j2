@@ -39,6 +39,10 @@ RUN ln -s glance-base-source/* glance \
     && cp -r /glance/etc/* /etc/glance/ \
     && chown -R glance: /etc/glance
 
+# Apply patch https://review.openstack.org/#/c/316799/ so
+# osprofiler/glance push event to mongodb
+COPY api.py /glance/glance/cmd/api.py
+COPY registry.py /glance/glance/cmd/registry.py
 {% endif %}
 
 COPY glance_sudoers /etc/sudoers.d/kolla_glance_sudoers
