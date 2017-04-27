@@ -26,6 +26,7 @@ import sys
 
 import eventlet
 from oslo_utils import encodeutils
+from glance import context
 
 
 # Monkey patch socket, time, select, threads
@@ -77,6 +78,7 @@ def main():
         if CONF.profiler.enabled:
             osprofiler.initializer.init_from_conf(
                 conf=CONF,
+                context=context.get_admin_context().to_dict(),
                 project="glance",
                 service="api",
                 host=CONF.bind_host
